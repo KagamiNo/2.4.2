@@ -39,7 +39,7 @@ public class HibernateConfig {
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter());
         entityManagerFactoryBean.setDataSource(getDataSource());
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan("com.example.CRUDTask");
+        entityManagerFactoryBean.setPackagesToScan("com.qursed.CRUDTask");
 
         Properties props = new Properties();
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
