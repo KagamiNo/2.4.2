@@ -2,22 +2,40 @@ package com.qursed.CRUDTask.DAO;
 
 import com.qursed.CRUDTask.Models.User;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Component
 public class UserDAO {
-    private List<User> users = new ArrayList<>();
-    {
-        users.add(new User("Alexander", "Koromyslov", 1500));
-        users.add(new User("Egor", "Zakurin", 2500));
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public List<User> index(){
-        return users;
+        return entityManager.createQuery("from User",User.class).getResultList();
     }
+
     public User show(int id){
-        return users.stream().filter(user -> user.getId() == id).findAny().orElse(null);
+        return entityManager.find(User.class, id);
+    }
+
+    @Transactional
+    public void save(User user){
+        entityManager.persist(user);
+        entityManager.flush();
+    }
+
+    @Transactional
+    public void update(int id, User user){
+        entityManager.merge(user);
+        entityManager.flush();
+    }
+
+    @Transactional
+    public void delete(int id){
+        entityManager.remove(show(id));
+        entityManager.flush();
     }
 }

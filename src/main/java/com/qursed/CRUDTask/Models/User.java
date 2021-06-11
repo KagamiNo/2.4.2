@@ -1,10 +1,31 @@
 package com.qursed.CRUDTask.Models;
 
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotEmpty(message = "Name shouldn't be empty")
+    @Size(min = 2, max = 20, message = "Your name is too short or too long")
     private String name;
+
+    @Size(min = 2, max = 20, message = "Your surname is too short or too long")
     private String surname;
+
+    @Min(value = 100, message = "Salary can't be less than 100")
     private int salary;
+
+    public User() {
+    }
 
     public User(String name, String surname, int salary) {
         this.name = name;
