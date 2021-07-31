@@ -10,7 +10,6 @@
     <div th:text="${user.getName()}">Name</div>
     <div th:text="${user.getSurname()}">Surname</div>
     <div th:text="${user.getSalary()}">Salary</div>
-
 <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
 
 <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">

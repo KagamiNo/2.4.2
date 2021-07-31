@@ -13,6 +13,10 @@ public class UserService {
 
     private UserDAO userDAO;
 
+    public User getUserByLogin(String login){
+        return this.userDAO.getUserByLogin(login);
+    }
+
     @Autowired
     public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;

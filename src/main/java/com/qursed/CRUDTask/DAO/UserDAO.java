@@ -13,28 +13,35 @@ public class UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<User> index(){
-        return entityManager.createQuery("from User",User.class).getResultList();
+    public List<User> index() {
+        return entityManager.createQuery("from User", User.class).getResultList();
     }
 
-    public User show(int id){
+    public User show(int id) {
         return entityManager.find(User.class, id);
     }
 
     @Transactional
-    public void save(User user){
+    public User getUserByLogin(String login) {
+        return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.login = :login")
+                .setParameter("login", login)
+                .getSingleResult();
+    }
+
+    @Transactional
+    public void save(User user) {
         entityManager.persist(user);
         entityManager.flush();
     }
 
     @Transactional
-    public void update(int id, User user){
+    public void update(int id, User user) {
         entityManager.merge(user);
         entityManager.flush();
     }
 
     @Transactional
-    public void delete(int id){
+    public void delete(int id) {
         entityManager.remove(show(id));
         entityManager.flush();
     }
