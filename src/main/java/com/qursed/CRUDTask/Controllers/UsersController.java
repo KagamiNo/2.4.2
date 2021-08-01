@@ -21,6 +21,7 @@ public class UsersController {
         this.userService = userService;
     }
 
+
     @GetMapping("")
     public String index(Model model){
         model.addAttribute("users", userService.index());
@@ -31,7 +32,7 @@ public class UsersController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("user", userService.show(id));
-        return "admin/user";
+        return "admin/show";
     }
 
     @GetMapping("/new")
